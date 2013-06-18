@@ -11,7 +11,7 @@ group :development, :test do
   gem 'bullet'
   gem 'guard-rspec'
   gem 'rb-fsevent', '~> 0.9'
-  gem 'simplecov', git: "git://github.com/colszowka/simplecov.git", require: false
+  gem 'simplecov'
   gem 'factory_girl_rails'
 end
 
