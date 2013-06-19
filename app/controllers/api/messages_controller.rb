@@ -5,9 +5,7 @@ class Api::MessagesController < ApplicationController
   end
 
   def show
-
-    messages = Message.where(track_id: track_id)
-
+    messages = Message.where(track_id: params[:track_id])
     if messages.present?
       render json: messages
     else
@@ -25,10 +23,6 @@ class Api::MessagesController < ApplicationController
   end
 
   private
-
-  def track_id
-    params[:id]
-  end
 
   def render_unavailable
     render json: {error: "No track found"}, status: 404
