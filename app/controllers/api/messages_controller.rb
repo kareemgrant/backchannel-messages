@@ -29,7 +29,7 @@ class Api::MessagesController < ApplicationController
   end
 
   def render_create_error(message)
-    error = message.errors.to_a.first
+    error = message.errors
     render json: {error: error}, status: 400
   end
 

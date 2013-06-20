@@ -65,7 +65,7 @@ describe Api::MessagesController, :type => :controller do
             post "/api/messages", message: { user_id:1,
                                              body: "Let's go!!!" }
 
-            error = {:error => "Track can't be blank"}
+            error = {:error => {"track_id" => ["can't be blank"]}}
             expect(last_response.status).to eq 400
             expect(last_response.body).to eq error.to_json
           end
@@ -74,7 +74,7 @@ describe Api::MessagesController, :type => :controller do
             post "/api/messages", message: { track_id:3,
                                              body: "Let's go!!!" }
 
-            error = {:error => "User can't be blank"}
+            error = {:error => {"user_id" => ["can't be blank"]}}
             expect(last_response.status).to eq 400
             expect(last_response.body).to eq error.to_json
           end
@@ -83,7 +83,7 @@ describe Api::MessagesController, :type => :controller do
             post "/api/messages", message: { user_id:1,
                                              track_id:3 }
 
-            error = {:error => "Body can't be blank"}
+            error = {:error => {"body" => ["can't be blank"]}}
             expect(last_response.status).to eq 400
             expect(last_response.body).to eq error.to_json
           end
