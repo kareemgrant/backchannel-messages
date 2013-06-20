@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 gem 'rails-api'
 gem 'pg'
+gem 'thin'
+gem 'faye'
 
 group :development, :test do
   gem 'rspec-rails'

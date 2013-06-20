@@ -16,6 +16,8 @@ class Api::MessagesController < ApplicationController
   def create
     message = Message.create(params[:message])
     if message.valid?
+      client = Faye::Client.new('http://localhost:9292/faye')
+      client.publish("tracks/#{params[:message][:track_id]}", 'text' => "boom")
       render json: message, status: 201
     else
       render_create_error(message)
