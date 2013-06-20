@@ -6,6 +6,7 @@ class Api::MessagesController < ApplicationController
 
   def show
     messages = Message.where(track_id: params[:track_id])
+
     if messages.present?
       render json: messages
     else
@@ -15,9 +16,10 @@ class Api::MessagesController < ApplicationController
 
   def create
     message = Message.create(params[:message])
+
     if message.valid?
       client = Faye::Client.new('http://localhost:9292/faye')
-      client.publish("tracks/#{params[:message][:track_id]}", 'text' => "boom")
+      client.publish("/tracks/#{params[:message][:track_id]}", 'text' => message)
       render json: message, status: 201
     else
       render_create_error(message)
@@ -31,8 +33,7 @@ class Api::MessagesController < ApplicationController
   end
 
   def render_create_error(message)
-    error = message.errors
-    render json: {error: error}, status: 400
+    render json: {error: message.errors}, status: 400
   end
 
 end
