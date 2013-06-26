@@ -83,7 +83,7 @@ describe Api::MessagesController, :type => :controller do
             expect(last_response.body).to eq error.to_json
           end
 
-          it "should return an error message and not create a new message when missing user_id" do
+          it "should return an error message and not create a new message when missing body" do
             post "/api/messages", message: { user_id:1,
                                              track_id:3 }
 
