@@ -51,6 +51,10 @@ describe Api::MessagesController, :type => :controller do
       describe "POST /api/messages" do
 
         it " should create a message with valid parameters" do
+          client = stub()
+          Faye::Client.stub(:new).with('http://localhost:9292/faye').and_return(client)
+          client.stub(:publish)
+
           post "/api/messages", message: { user_id:1,
                                            track_id:3,
                                            body: "Let's go!!!" }

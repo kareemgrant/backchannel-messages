@@ -5,4 +5,3 @@ module ApiHelper
     Rails.application
   end
 end
-
