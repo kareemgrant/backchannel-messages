@@ -10,12 +10,12 @@ class Api::MessagesController < ApplicationController
     if messages.present?
       render json: messages
     else
-      render_unavailable
+      render json: []
     end
   end
 
   def create
-    message = Message.create(params[:message])
+    message = Message.create(params[:message].merge(track_id: params[:track_id]))
 
     if message.valid?
       client = Faye::Client.new('http://localhost:9292/faye')
@@ -27,10 +27,6 @@ class Api::MessagesController < ApplicationController
   end
 
   private
-
-  def render_unavailable
-    render json: {error: "No track found"}, status: 404
-  end
 
   def render_create_error(message)
     render json: {error: message.errors}, status: 400

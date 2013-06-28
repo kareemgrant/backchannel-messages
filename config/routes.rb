@@ -1,7 +1,13 @@
 BackchannelMessages::Application.routes.draw do
 
   namespace :api do
-    resources :messages, only: [:index, :create]
-    get '/messages/:track_id', to: "messages#show", as: "track_messages"
+    get '/messages', to: "messages#index", as: "all_messages"
+    resources :tracks, only: [] do
+      resources :messages, only: [:create] do
+        collection do
+          get :show
+        end
+      end
+    end
   end
 end
